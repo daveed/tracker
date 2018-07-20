@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 
-ruby '2.3.0'
+ruby '2.5.1'
 
 gem 'active_model_serializers'
 gem 'attr_defaultable', require: 'extend_attr_defaultable'
+gem 'bootsnap', '>= 1.1.0', require: false
 gem 'pg'
 gem 'puma'
 gem 'rack-cors'
-gem 'rails', '4.2.6'
-gem 'rails-api'
+gem 'rails', '5.2.0'
 gem 'swagger-docs'
 
 group :development, :test do
@@ -17,7 +17,7 @@ group :development, :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'dotenv'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails', "~> 4.0"
   gem 'hashdiff'
   gem 'mortadella'
   gem 'rack-test'
@@ -36,5 +36,6 @@ end
 
 group :development do
   gem 'annotate'
+  gem 'listen'
   gem 'spring'
 end

@@ -10,7 +10,7 @@ class WorldDriver
 
   def given_projects count: nil, data: nil
     if count.present?
-      FactoryGirl.create_list :project, count.to_i
+      FactoryBot.create_list :project, count.to_i
     elsif data.present?
       ActiveCucumber.create_many Project, data
     else

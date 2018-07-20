@@ -33,3 +33,7 @@ When(/^I request for the (.*) list$/) do |collection_type|
   params = {project_id: @project.id}
   d.request_list collection_type, params
 end
+
+Given("{int} tasks") do |int|
+  d.given_tasks count: int
+end

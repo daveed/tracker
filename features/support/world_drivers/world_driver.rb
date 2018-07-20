@@ -18,6 +18,14 @@ class WorldDriver
     end
   end
 
+  def given_tasks count: nil
+    if count.present?
+      FactoryBot.create_list :task, count.to_i
+    else
+      fail 'No tasks given'
+    end
+  end
+
   def given_project data
     ActiveCucumber.create_one Project, data
   end

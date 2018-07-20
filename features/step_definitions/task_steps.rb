@@ -37,3 +37,17 @@ end
 Given("{int} tasks") do |int|
   d.given_tasks count: int
 end
+
+Given("a task") do
+  @task = create(:task)
+end
+
+When(/^I request for the (.*) using its id$/) do |collection_type|
+  params = {project_id: @project.id, id: @task.id}
+  d.request_member collection_type, params
+end
+
+Then("I get the following task with:") do |string|
+  data = eval string
+  expect(HashDiff.diff d.results, data).to be_empty
+end

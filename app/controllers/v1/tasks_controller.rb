@@ -16,6 +16,21 @@ module V1
       end
     end
 
+    swagger_api :show do
+      summary 'Fetch a single Task'
+      param :path, :id, :string, :required, 'Task Id'
+      param :path, :project_id, :string, :required, 'Project Id'
+    end
+
+    def show
+      task, error = GetTask.new(show_params).call
+      if task.present?
+        render json: task
+      else
+        render json: { errors: ['Task not found'] }, status: 404
+      end
+    end
+
     swagger_api :create do
       summary 'Creates a new Task'
       param :form, :name, :string, :required, 'Task designation'
@@ -33,6 +48,10 @@ module V1
     private
     def index_params
       params.permit(:page, :page_size).to_h.symbolize_keys
+    end
+
+    def show_params
+      params.permit(:id, :project_id).to_h.symbolize_keys
     end
 
     def task_params

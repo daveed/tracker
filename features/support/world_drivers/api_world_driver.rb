@@ -22,6 +22,19 @@ class ApiWorldDriver < WorldDriver
     end
   end
 
+  def request_member collection_type, params
+    project_id = params[:project_id]
+    id = params[:id]
+    result = get "/v1/projects/#{project_id}/tasks/#{id}"
+    body = JSON.parse(result.body).deep_symbolize_keys
+    if body[:errors].present?
+      @errors.push *body[:errors]
+      @results = nil
+    else
+      @results = body
+    end
+  end
+
   def create_project attributes
     result = post '/v1/projects', { project: attributes }
     body = JSON.parse(result.body).deep_symbolize_keys

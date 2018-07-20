@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :v1 do
     resources :projects, only: crud do
-      resources :tasks, only: %i(index create)
+      resources :tasks, only: %i(index create show)
     end
   end
 end

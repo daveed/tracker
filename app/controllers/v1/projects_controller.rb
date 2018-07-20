@@ -19,10 +19,10 @@ module V1
 
     swagger_api :show do
       summary 'Fetch a single Project'
-      param :path, :id, :string, :required, 'User Id'
+      param :path, :id, :string, :required, 'Project Id'
     end
     def show
-      project = Project.find_by params[:id]
+      project = Project.find_by id: params[:id]
       if project.present?
         render json: project
       else
@@ -66,7 +66,7 @@ module V1
       param :path, :id, :string, :required, 'Project Id'
     end
     def destroy
-      project = Project.find_by params[:id]
+      project = Project.find_by id: params[:id]
       if project.present? && project.update_attributes(state: :disabled)
         render json: project
       elsif project.present?

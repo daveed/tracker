@@ -34,6 +34,7 @@ class Task < ActiveRecord::Base
   }
 
   scope :tasks, -> { joins(:project) }
+  scope :by_id, -> (id) { joins(:project).find_by(id: id) }
 
   private
 

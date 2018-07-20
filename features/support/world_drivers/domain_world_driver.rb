@@ -10,6 +10,11 @@ class DomainWorldDriver < WorldDriver
     @errors.push *e
   end
 
+  def request_member collection_type, params
+    @results, e = "Get#{collection_type.camelize}".constantize.new(params).call
+    @errors.push *e
+  end
+
   def create_project params
     project = Project.create params
     @errors.push *project.errors.full_messages

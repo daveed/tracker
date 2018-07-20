@@ -15,6 +15,8 @@
 #
 
 class Project < ApplicationRecord
+  has_many :tasks
+
   validates :name, presence: true, uniqueness: true
   validates :state, presence: true
 

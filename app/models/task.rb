@@ -33,6 +33,8 @@ class Task < ActiveRecord::Base
     done: 2
   }
 
+  scope :tasks, -> { joins(:project) }
+
   private
 
   def set_default_state

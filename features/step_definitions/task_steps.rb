@@ -28,3 +28,8 @@ end
 Then("there is a task with the state {string}") do |string|
   expect(Task.first.todo?).to be true
 end
+
+When(/^I request for the (.*) list$/) do |collection_type|
+  params = {project_id: @project.id}
+  d.request_list collection_type, params
+end

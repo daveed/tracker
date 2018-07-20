@@ -11,7 +11,8 @@ class ApiWorldDriver < WorldDriver
   end
 
   def request_list collection_type, params
-    result = get "/v1/#{collection_type}?#{params.to_query}"
+    request_path = request_path collection_type, params
+    result = get request_path
     body = JSON.parse(result.body).deep_symbolize_keys
     if body[:errors].present?
       @errors.push *body[:errors]
@@ -37,4 +38,15 @@ class ApiWorldDriver < WorldDriver
       @errors.push *body[:errors]
     end
   end
+
+  private
+
+  def request_path collection_type, params
+    case collection_type
+    when "projects"
+      "/v1/#{collection_type}?#{params.to_query}"
+    when "tasks"
+      "/v1/projects/#{params[:project_id]}/tasks"
+    end
+end
 end

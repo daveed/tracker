@@ -1,12 +1,3 @@
-When(/^I request the (.*) list$/) do |collection_type|
-  d.request_list collection_type, Hash.new
-end
-
-When(/^I request the (.*) list with parameters:$/) do |collection_type, params|
-  params = vertical_table params
-  d.request_list collection_type, params
-end
-
 Then(/^I get (\d+) (.*) back$/) do |count, kind|
   count = count.to_i
   kind = kind.pluralize.to_sym

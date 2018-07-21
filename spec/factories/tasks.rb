@@ -24,5 +24,17 @@ FactoryBot.define do
     project
     name "Sample Task"
     description "A sample task"
+
+    trait :todo do
+      state :todo
+    end
+
+    trait :in_progress do
+      state :in_progress
+    end
+
+    trait :done do
+      state :done
+    end
   end
 end

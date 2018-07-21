@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.5.1'
 
+gem 'aasm'
 gem 'active_model_serializers'
 gem 'attr_defaultable', require: 'extend_attr_defaultable'
 gem 'bootsnap', '>= 1.1.0', require: false

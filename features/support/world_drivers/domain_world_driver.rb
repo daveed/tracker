@@ -24,4 +24,17 @@ class DomainWorldDriver < WorldDriver
     task = Task.create params
     @errors.push *task.errors.full_messages
   end
+
+  def update_task params
+    task = Task.find_by id: params[:id]
+    task.present? && task.update_attributes(params)
+    @errors.push *task.errors.full_messages
+  end
+
+  def transition_task params, event
+    task = Task.find_by id: params[:id]
+    task.present? && task.send("#{event}!")
+    @errors.push *task.errors.full_messages
+  end
+
 end

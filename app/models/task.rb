@@ -20,6 +20,8 @@
 #
 
 class Task < ActiveRecord::Base
+  include AASM
+
   belongs_to :project
 
   validates :name, presence: true
@@ -36,9 +38,38 @@ class Task < ActiveRecord::Base
   scope :tasks, -> { joins(:project) }
   scope :by_id, -> (id) { joins(:project).find_by(id: id) }
 
+  aasm whiny_transitions: false, column: :state, enum: true do
+    state :todo, :initial => true
+    state :in_progress, :done
+
+    after_all_transitions :log_state_update
+
+    event :start do
+      transitions :from => [:todo, :in_progress], :to => :in_progress
+    end
+
+    event :finish do
+      transitions :from => [:in_progress, :done], :to => :done
+    end
+
+    event :stop do
+      transitions :from => [:in_progress, :todo], :to => :todo
+    end
+  end
+
+  def log_state_update
+    logger.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
+  end
+
+  def transition(event)
+    return true unless event.present?
+    self.send(event)
+  end
+
   private
 
   def set_default_state
     self.state ||= :todo
   end
+
 end

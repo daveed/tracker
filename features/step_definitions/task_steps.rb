@@ -51,3 +51,34 @@ Then("I get the following task with:") do |string|
   data = eval string
   expect(HashDiff.diff d.results, data).to be_empty
 end
+
+When("I {string} working on the task") do |string|
+  event = string
+  params = {project_id: @project.id, id: @task.id}
+  d.transition_task params, event
+end
+
+Then("its state is updated to {string}") do |string|
+  expect(@task.reload.state).to eq string
+end
+
+Given("a task with a state {string}") do |string|
+  @task = create(:task, string.to_sym)
+end
+
+Then("its state is still {string}") do |string|
+  expect(@task.reload.state).to eq string
+end
+
+Given("a task that has the name {string}") do |string|
+  @task = create(:task, name: string)
+end
+
+When("I change it to {string}") do |string|
+  params = {project_id: @project.id, id: @task.id, name: string}
+  d.update_task params
+end
+
+Then("its name is {string}") do |string|
+  expect(@task.reload.name).to eq string
+end

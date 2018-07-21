@@ -49,7 +49,7 @@ class Task < ActiveRecord::Base
     end
 
     event :finish do
-      transitions :from => [:in_progress, :done], :to => :done
+      transitions :from => [:in_progress, :done], :to => :done, after: :notify
     end
 
     event :stop do
@@ -64,6 +64,10 @@ class Task < ActiveRecord::Base
   def transition(event)
     return true unless event.present?
     self.send(event)
+  end
+
+  def notify
+    Notifyer.new("#{self.name} is #{self.state}").notify
   end
 
   private

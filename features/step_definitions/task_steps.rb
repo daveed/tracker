@@ -82,3 +82,7 @@ end
 Then("its name is {string}") do |string|
   expect(@task.reload.name).to eq string
 end
+
+Then("I am notified by text message") do
+  "Looking at your phone! More notifications!"
+end

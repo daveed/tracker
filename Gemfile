@@ -11,13 +11,14 @@ gem 'puma'
 gem 'rack-cors'
 gem 'rails', '5.2.0'
 gem 'swagger-docs'
+gem 'twilio-ruby'
 
 group :development, :test do
   gem 'active_cucumber'
   gem 'capybara'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
-  gem 'dotenv'
+  gem 'dotenv-rails'
   gem 'factory_bot_rails', "~> 4.0"
   gem 'hashdiff'
   gem 'mortadella'

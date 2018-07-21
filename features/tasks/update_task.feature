@@ -2,6 +2,7 @@
 Feature: Updates a task
 
   As a user I can transition tasks between states
+  Once a task is done a text message is sent to the user phone
 
   Valid states transitions:
    - todo -> in_progress
@@ -64,3 +65,10 @@ Feature: Updates a task
     Given a task that has the name "Sample Task"
     When I change it to "Simple Task"
     Then its name is "Simple Task"
+
+
+  Scenario: Sending a text message when a task is done
+    Given a task with a state "in_progress"
+    When I "finish" working on the task
+    Then its state is updated to "done"
+    And I am notified by text message

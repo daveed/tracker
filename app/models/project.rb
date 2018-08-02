@@ -5,7 +5,7 @@
 #  id          :uuid             not null, primary key
 #  name        :string
 #  description :text
-#  state       :integer          default(10)
+#  state       :integer          default("active")
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
@@ -14,7 +14,9 @@
 #  index_projects_on_name  (name) UNIQUE
 #
 
-class Project < ActiveRecord::Base
+class Project < ApplicationRecord
+  has_many :tasks, dependent: :destroy
+
   validates :name, presence: true, uniqueness: true
   validates :state, presence: true
 

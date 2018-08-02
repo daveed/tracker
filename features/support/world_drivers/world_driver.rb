@@ -10,11 +10,19 @@ class WorldDriver
 
   def given_projects count: nil, data: nil
     if count.present?
-      FactoryGirl.create_list :project, count.to_i
+      FactoryBot.create_list :project, count.to_i
     elsif data.present?
       ActiveCucumber.create_many Project, data
     else
       fail 'No projects given'
+    end
+  end
+
+  def given_tasks count: nil
+    if count.present?
+      FactoryBot.create_list :task, count.to_i
+    else
+      fail 'No tasks given'
     end
   end
 

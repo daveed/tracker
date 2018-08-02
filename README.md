@@ -12,31 +12,32 @@ This application is very incomplete and as such has plenty of room for you to ad
 
 ### Software
 
-* Ruby 2.3
-* Postgres >= 9.3
+* Ruby 2.5.1
+* Rails 5.2.0
+* Postgres >= 10.1
 
 ### Enviroment Setup
 
 This project uses bundler so that may well be good enough for you. In addition you may want to create a gemset to further sandbox your environment.
 
-* `bundle install`
+* `bundle install --jobs=10 --retry=3`
 
 ### Database Setup
 
-* `bundle exec rake db:create`
-* `bundle exec rake db:migrate`
+* `./bin/rails db:create`
+* `./bin/rails db:schema:load`
 
 ### Running Tests
 
-* `bundle exec rake spec` - Run the RSpec tests
+* `./bin/rake spec` - Run the RSpec tests
 * `bin/cuc_all` - Run all cucumber features
 * `bin/cuc_domain` - Run just the domain level cucumber features
 * `bin/cuc_api` - Run just the API level cucumber features
 
 ### Interacting with the system
 
-* `bundle exec rails server` - Run the rails server itself
-* `bundle exec rails console` - Run the rails console
+* `./bin/rails s` - Run the rails server
+* `./bin/rails c` - Run the rails console
 
 ## What's Expected
 
